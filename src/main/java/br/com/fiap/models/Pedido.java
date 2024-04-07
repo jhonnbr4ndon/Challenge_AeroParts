@@ -1,10 +1,8 @@
 package br.com.fiap.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "pedido")
@@ -18,20 +16,6 @@ public class Pedido {
     private Date data;
     @Column(name = "pedido_status")
     private String status;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "pedido", orphanRemoval = true)
-    private List<ItemPedido> itemPedidos;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "cotacao_id")
-    private Cotacao cotacao;
 
     public Long getId() {
         return id;
@@ -55,29 +39,5 @@ public class Pedido {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public List<ItemPedido> getItemPedidos() {
-        return itemPedidos;
-    }
-
-    public void setItemPedidos(List<ItemPedido> itemPedidos) {
-        this.itemPedidos = itemPedidos;
-    }
-
-    public Cotacao getCotacao() {
-        return cotacao;
-    }
-
-    public void setCotacao(Cotacao cotacao) {
-        this.cotacao = cotacao;
     }
 }

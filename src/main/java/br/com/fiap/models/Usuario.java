@@ -1,9 +1,6 @@
 package br.com.fiap.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -20,9 +17,6 @@ public class Usuario {
     @Column(name = "usuario_senha")
     private String senha;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "usuario", orphanRemoval = true)
-    private List<Pedido> pedidos;
 
     public Long getId() {
         return id;
@@ -56,11 +50,4 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
 }

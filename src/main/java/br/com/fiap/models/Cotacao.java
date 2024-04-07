@@ -1,10 +1,8 @@
 package br.com.fiap.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "cotacao")
@@ -18,10 +16,6 @@ public class Cotacao {
     private Date data;
     @Column(name = "preco_unitario")
     private Double preco;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "cotacao", orphanRemoval = true)
-    private List<Pedido> pedidos;
 
     public Long getId() {
         return id;
@@ -45,13 +39,5 @@ public class Cotacao {
 
     public void setPreco(Double preco) {
         this.preco = preco;
-    }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
     }
 }
