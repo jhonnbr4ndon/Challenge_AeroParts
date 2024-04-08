@@ -58,7 +58,7 @@ Para criar um registro de container na Azure, execute o seguinte comando no term
 
 Construa a imagem Docker usando o seguinte comando, substituindo nome-imagem pelo nome desejado:
 
-#### docker build -t nome-imagem .
+#### docker build -t list-aeroparts .
 
 ### Passo 6: Configuração do Acesso ao ACR
 
@@ -68,14 +68,14 @@ Acesse o portal Azure, vá para o ACR criado e ative o Utilizador Administrador.
 
 Faça login no ACR usando o terminal do Visual Studio Code com o seguinte comando, substituindo nome-Servidor-de-início-de-sessão, Nome do Utilizador e password pelos valores correspondentes:
 
-#### docker login nome-Servidor-de-início-de-sessão.io
+#### docker login aeropartsrm97305.azurecr.io
 
 ### Passo 9: Tag e Envio da Imagem para o ACR
 
 Tagueie a imagem criada com o nome do ACR e envie para o ACR com os seguintes comandos:
 
-#### docker tag nome-imagem Servidor-de-início-de-sessão.io/nome-imagem
-#### docker push Servidor-de-início-de-sessão.io/nome-imagem
+#### docker tag list-aeroparts aeropartsrm97305.azurecr.io/nome-imagem
+#### docker push Servidor-de-início-de-sessão.io/list-aeroparts
 
 
 Após seguir este guia, a imagem com a aplicação foi criada e implantada com sucesso na nuvem Azure, utilizando Docker e Azure Container Registry. Agora está pronta para ser utilizada e acessada remotamente.
