@@ -36,7 +36,7 @@ Além disso, instale as seguintes extensões no Visual Studio Code:
 
 Abra o terminal no Visual Studio Code e faça login na sua conta Azure usando o comando:
 
-az login
+#### az login
 
 ### Passo 2: Criação de Recursos na Azure
 
