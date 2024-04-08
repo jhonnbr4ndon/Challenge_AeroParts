@@ -2,7 +2,6 @@
 
 ## Integrantes do Grupo
 - Leonardo Paganini RM96562
-- Matheus Leite RM96893
 - Jhonn Brandon RM97305
 - Regina Pompeo RM97032
 
@@ -16,9 +15,9 @@ gerenciamento de fornecedores, pedidos e produtos. A automação desse processo
 proporciona maior eficiência, reduzindo o tempo necessário para obter cotações competitivas 
 e facilitando o controle e a análise dos dados de aquisição.
 
-## Guia de Implantação do AeroParts na Nuvem Azure
+## Guia de Implantação do Projeto na Nuvem Azure com Docker e Azure Container Registry
 
-Este guia fornece instruções passo a passo para implantar a aplicação AeroParts na nuvem Azure usando Docker e Azure Container Registry (ACR).
+Este guia fornece instruções passo a passo para implantar a imagem com a aplicação na nuvem Azure usando Docker e Azure Container Registry (ACR).
 
 ### Pré-requisitos
 
@@ -32,8 +31,6 @@ Além disso, instale as seguintes extensões no Visual Studio Code:
 
 - Azure Account
 - Docker
-
-### Guia de Implantação do Projeto na Nuvem Azure com Docker e Azure Container Registry
 
 ### Passo 1: Autenticação na Azure
 
@@ -86,6 +83,9 @@ Tagueie a imagem criada com o nome do ACR e envie para o ACR com os seguintes co
 ```bash
 docker tag nome-imagem Servidor-de-início-de-sessão.io/nome-imagem
 docker push Servidor-de-início-de-sessão.io/nome-imagem
+
+
+Após seguir este guia, a imagem com a aplicação foi criada e implantada com sucesso na nuvem Azure, utilizando Docker e Azure Container Registry. Agora está pronta para ser utilizada e acessada remotamente.
 
 
 
