@@ -5,47 +5,57 @@ import br.com.fiap.controller.dto.UsuarioDTO;
 import br.com.fiap.service.UsuarioService;
 import br.com.fiap.models.Usuario;
 import br.com.fiap.service.mapper.UsuarioMapper;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/lista")
-    public ResponseEntity<List<UsuarioDTO>> listaUsuarios() {
-        List<UsuarioDTO> usuarioDTO = usuarioService.listarUsuarios().stream().map(UsuarioMapper::entityDTO).toList();
-        return ResponseEntity.ok(usuarioDTO);
+    @PostMapping("/novo")
+    public String criarUsuario(@ModelAttribute UsuarioDTO usuarioDTO) {
+        usuarioService.criarUsuario(UsuarioMapper.entity(usuarioDTO));
+        return "redirect:/usuario";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> encontrarUsuarioPorID(@PathVariable Long id) {
+    @GetMapping("/novo")
+    public String formularioNovoUsuario(Model model) {
+        model.addAttribute("usuarioDTO", new UsuarioDTO());
+        return "usuarioForm";
+    }
+
+    @GetMapping
+    public String listarUsuarios(Model model) {
+        List<UsuarioDTO> usuarioDTO = usuarioService.listarUsuarios().stream().map(UsuarioMapper::entityDTO).collect(Collectors.toList());
+        model.addAttribute("usuarioDTO", usuarioDTO);
+        return "usuario";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String formularioEditarUsuario(@PathVariable Long id, Model model) {
         Usuario usuario = usuarioService.encontrarUsuarioPorID(id);
-        return ResponseEntity.ok(UsuarioMapper.entityDTO(usuario));
+        model.addAttribute("usuarioDTO", UsuarioMapper.entityDTO(usuario));
+        return "usuarioEditar";
     }
 
-    @PostMapping("/criar")
-    public ResponseEntity<UsuarioDTO> criarNovoUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
-        Usuario usuario = usuarioService.criarUsuario(UsuarioMapper.entity(usuarioDTO));
-        return ResponseEntity.ok(UsuarioMapper.entityDTO(usuario));
+    @PostMapping("/update/{id}")
+    public String atualizarUsuario(@PathVariable Long id, @ModelAttribute UsuarioDTO usuarioDTO) {
+        usuarioDTO.setId(id);
+        usuarioService.atualizarUsuario(usuarioDTO);
+        return "redirect:/usuario";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> atualizaUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioDTO usuarioDTO) {
-        Usuario usuario = usuarioService.atualizaUsuario(id, UsuarioMapper.entity(usuarioDTO));
-        return ResponseEntity.ok(UsuarioMapper.entityDTO(usuario));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarUsuario(@PathVariable Long id) {
+    @GetMapping("/delete/{id}")
+    public String removerUsuario(@PathVariable Long id) {
         usuarioService.removerUsuario(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/usuario";
     }
 }

@@ -1,0 +1,5 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "appService.preDeployTask": "package:AeroParts",
+    "appService.deploySubpath": "target/AeroParts-0.0.1-SNAPSHOT.jar"
+}

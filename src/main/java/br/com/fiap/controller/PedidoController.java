@@ -4,47 +4,57 @@ import br.com.fiap.controller.dto.PedidoDTO;
 import br.com.fiap.models.Pedido;
 import br.com.fiap.service.PedidoService;
 import br.com.fiap.service.mapper.PedidoMapper;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/pedido")
 public class PedidoController {
 
     @Autowired
     private PedidoService pedidoService;
 
-    @GetMapping("/lista")
-    public ResponseEntity<List<PedidoDTO>> listaPedidos() {
-        List<PedidoDTO> pedidoDTO = pedidoService.listarPedido().stream().map(PedidoMapper::entityDTO).toList();
-        return ResponseEntity.ok(pedidoDTO);
+    @PostMapping("/novo")
+    public String criarPedido(@ModelAttribute PedidoDTO pedidoDTO) {
+        pedidoService.criarPedido(PedidoMapper.entity(pedidoDTO));
+        return "redirect:/pedido";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PedidoDTO> encontrarPedidoPorID(@PathVariable Long id) {
+    @GetMapping("/novo")
+    public String formularioNovoPedido(Model model) {
+        model.addAttribute("pedidoDTO", new PedidoDTO());
+        return "pedidoForm";
+    }
+
+    @GetMapping
+    public String listarPedidos(Model model) {
+        List<PedidoDTO> pedidoDTO = pedidoService.listarPedido().stream().map(PedidoMapper::entityDTO).collect(Collectors.toList());
+        model.addAttribute("pedidoDTO", pedidoDTO);
+        return "pedido";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String formularioEditarPedido(@PathVariable Long id, Model model) {
         Pedido pedido = pedidoService.encontrarPedidoPorID(id);
-        return ResponseEntity.ok(PedidoMapper.entityDTO(pedido));
+        model.addAttribute("pedidoDTO", PedidoMapper.entityDTO(pedido));
+        return "pedidoEditar";
     }
 
-    @PostMapping("/criar")
-    public ResponseEntity<PedidoDTO> criarNovoPedido(@Valid @RequestBody PedidoDTO pedidoDTO) {
-        Pedido pedido = pedidoService.criarPedido(PedidoMapper.entity(pedidoDTO));
-        return ResponseEntity.ok(PedidoMapper.entityDTO(pedido));
+    @PostMapping("/update/{id}")
+    public String atualizarPedido(@PathVariable Long id, @ModelAttribute PedidoDTO pedidoDTO) {
+        pedidoDTO.setId(id);
+        pedidoService.atualizarPedidos(pedidoDTO);
+        return "redirect:/pedido";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<PedidoDTO> atualizaPedido(@PathVariable Long id, @Valid @RequestBody PedidoDTO pedidoDTO) {
-        Pedido pedido = pedidoService.atualizaPedido(id, PedidoMapper.entity(pedidoDTO));
-        return ResponseEntity.ok(PedidoMapper.entityDTO(pedido));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPedido(@PathVariable Long id) {
+    @GetMapping("/delete/{id}")
+    public String removerPedido(@PathVariable Long id) {
         pedidoService.removerPedido(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/pedido";
     }
 }
