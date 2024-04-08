@@ -36,34 +36,29 @@ Além disso, instale as seguintes extensões no Visual Studio Code:
 
 Abra o terminal no Visual Studio Code e faça login na sua conta Azure usando o comando:
 
-```bash
 az login
 
 ### Passo 2: Criação de Recursos na Azure
 
 Crie um grupo de recursos na Azure com o seguinte comando, substituindo `nome-resourse-group` pelo nome desejado e `eastus` pela região desejada:
 
-```bash
-az group create --name nome-resourse-group --location eastus
+#### az group create --name nome-resourse-group --location eastus
 
 ### Passo 3: Criação do Azure Container Registry (ACR)
 
 Para criar um registro de container na Azure, execute o seguinte comando no terminal do Azure CLI, substituindo `nome-resourse-group-criado` pelo nome do grupo de recursos criado anteriormente e `nome-container` pelo nome desejado para o registro de container:
 
-```bash
-az acr create --resource-group nome-resourse-group-criado --name nome-container --sku Basic
+#### az acr create --resource-group nome-resourse-group-criado --name nome-container --sku Basic
 
 ### Passo 4: Clonagem do Repositório
 
-```bash
-git clone repositorio-github
+#### git clone repositorio-github
 
 ### Passo 5: Construção da Imagem Docker
 
 Construa a imagem Docker usando o seguinte comando, substituindo nome-imagem pelo nome desejado:
 
-```bash
-docker build -t nome-imagem .
+#### docker build -t nome-imagem .
 
 ### Passo 6: Configuração do Acesso ao ACR
 
@@ -73,28 +68,14 @@ Acesse o portal Azure, vá para o ACR criado e ative o Utilizador Administrador.
 
 Faça login no ACR usando o terminal do Visual Studio Code com o seguinte comando, substituindo nome-Servidor-de-início-de-sessão, Nome do Utilizador e password pelos valores correspondentes:
 
-```bash
-docker login nome-Servidor-de-início-de-sessão.io
+#### docker login nome-Servidor-de-início-de-sessão.io
 
 ### Passo 9: Tag e Envio da Imagem para o ACR
 
 Tagueie a imagem criada com o nome do ACR e envie para o ACR com os seguintes comandos:
 
-```bash
-docker tag nome-imagem Servidor-de-início-de-sessão.io/nome-imagem
-docker push Servidor-de-início-de-sessão.io/nome-imagem
+#### docker tag nome-imagem Servidor-de-início-de-sessão.io/nome-imagem
+#### docker push Servidor-de-início-de-sessão.io/nome-imagem
 
 
 Após seguir este guia, a imagem com a aplicação foi criada e implantada com sucesso na nuvem Azure, utilizando Docker e Azure Container Registry. Agora está pronta para ser utilizada e acessada remotamente.
-
-
-
-
-
-
-
-
-
-
-
-
