@@ -35,15 +35,16 @@ Além disso, instale as seguintes extensões no Visual Studio Code:
 ### Passo 1: Autenticação na Azure
 
 Abra o terminal no Visual Studio Code e faça login na sua conta Azure usando o comando:
-
+```
 #### az login
+```
 
 ### Passo 2: Criação de Recursos na Azure
 
 Crie um grupo de recursos na Azure com o seguinte comando, substituindo `nome-resourse-group` pelo nome desejado e `eastus` pela região desejada:
-
+```
 #### az group create --name nome-resourse-group --location eastus
-
+```
 ### Passo 3: Criação do Azure Container Registry (ACR)
 
 Para criar um registro de container na Azure, execute o seguinte comando no terminal do Azure CLI, substituindo `nome-resourse-group-criado` pelo nome do grupo de recursos criado anteriormente e `nome-container` pelo nome desejado para o registro de container:
