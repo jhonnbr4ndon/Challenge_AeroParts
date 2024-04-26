@@ -71,7 +71,7 @@ Faça login no ACR usando o terminal do Visual Studio Code com o seguinte comand
 ```
 docker login nome-do-projeto.azurecr.io
 ```
-### Passo 9: Tag e Envio da Imagem para o ACR
+### Passo 8: Tag e Envio da Imagem para o ACR
 
 Tagueie a imagem criada com o nome do ACR e envie para o ACR com os seguintes comandos:
 ```
